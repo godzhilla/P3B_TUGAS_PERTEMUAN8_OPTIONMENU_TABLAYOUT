@@ -7,75 +7,72 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.EditText
+import com.example.tugaspertemuan8_optionmenu_tablayout.MainActivity.Companion.viewPager2a
 import com.example.tugaspertemuan8_optionmenu_tablayout.databinding.FragmentRegisterBinding
+import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterFragment : Fragment() {
-    private lateinit var binding : FragmentRegisterBinding
-
     companion object {
-        const val EXTRA_USERNAME = "extra_username"
-        const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_PHONE = "extra_phone"
-        const val EXTRA_PASSWORD = "extra_password"
+        var username = ""
+        var password = ""
+        var email = ""
+        var phone = ""
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
 
-        with(binding) {
-            // ini mendapatkan komponen btnRegister
-            /* btnREgister ini memiliki beberapa fungsi dan method
-            * salah satunya setOnClik listerner
-            *
-            * set on click listener ini digunakan untuk membuat listener ketika
-            * objek terbut di klik oleh user*/
-            /*kita disini akan membuat varibael objek untuk intent
-            * intent ini akan digunakan untuk melakukan start activity page berikutnya*/
-            btnRegister.setOnClickListener {
-                val iniVariableObjectIntent = Intent(this@RegisterFragment, LoginFragment::class.java)
-                iniVariableObjectIntent.putExtra(EXTRA_USERNAME, editTextUsername.text.toString())
-                iniVariableObjectIntent.putExtra(EXTRA_EMAIL, editTextEmail.text.toString())
-                iniVariableObjectIntent.putExtra(EXTRA_PHONE, editTextPhone.text.toString())
-                clear_form()
-                startActivity(iniVariableObjectIntent)
+        val inputUsername = view.findViewById<EditText>(R.id.edit_text_username)
+        val inputPassword = view.findViewById<EditText>(R.id.edit_text_password)
+        val inputPhone = view.findViewById<EditText>(R.id.edit_text_phone)
+        val inputEmail = view.findViewById<EditText>(R.id.edit_text_email)
+
+        view.findViewById<View>(R.id.btn_register).setOnClickListener(){
+            if (inputUsername.text.toString().isEmpty()) {
+                view.findViewById<EditText>(R.id.edit_text_username).error = "Masukkan username"
+                return@setOnClickListener
             }
 
-
-            textViewCondition.setOnClickListener(){
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://www.google.com/")
+            if (inputPassword.text.toString().isEmpty()) {
+                view.findViewById<EditText>(R.id.edit_text_password).error = "Masukkan password"
+                return@setOnClickListener
             }
 
-            textViewLogin.setOnClickListener(){
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://www.google.com/")
+            if (inputPhone.text.toString().isEmpty()) {
+                view.findViewById<EditText>(R.id.edit_text_phone).error = "Masukkan phone"
+                return@setOnClickListener
             }
 
-            textViewTerms.setOnClickListener(){
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://www.google.com/")
+            if (inputEmail.text.toString().isEmpty()) {
+                view.findViewById<EditText>(R.id.edit_text_email).error = "Masukkan email"
+                return@setOnClickListener
             }
+
+            username = inputUsername.text.toString()
+            password = inputPassword.text.toString()
+            phone = inputPhone.text.toString()
+            email = inputEmail.text.toString()
+
+            inputUsername.text.clear()
+            inputPassword.text.clear()
+            inputEmail.text.clear()
+            inputPhone.text.clear()
+
+            with(view){
+                findViewById<CheckBox>(R.id.checkbox1).isChecked = false
+            }
+
+            viewPager2a.setCurrentItem(1)
         }
-    }
 
-    fun clear_form(){
-        with(binding){
-            editTextEmail.text.clear()
-            editTextPhone.text.clear()
-            editTextUsername.text.clear()
-            editTextPassword.text.clear()
-
+        view.findViewById<View>(R.id.text_view_login).setOnClickListener(){
+            viewPager2a.setCurrentItem(1)
         }
+
+        return view
     }
 }

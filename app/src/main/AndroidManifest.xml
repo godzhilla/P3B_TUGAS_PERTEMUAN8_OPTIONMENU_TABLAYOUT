@@ -13,8 +13,13 @@
         android:theme="@style/Theme.TUGASPERTEMUAN8_OPTIONMENU_TABLAYOUT"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:theme="@style/Theme.TUGASPERTEMUAN8_OPTIONMENU_TABLAYOUT.WithActionBara"/>
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.TUGASPERTEMUAN8_OPTIONMENU_TABLAYOUT.WithActionBara">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

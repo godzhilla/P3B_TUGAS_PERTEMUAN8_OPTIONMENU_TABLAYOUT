@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewPager2: ViewPager2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = "Dashboard"
+        title = ""
 //        supportActionBar?.hide()
         var binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,11 +30,12 @@ class MainActivity : AppCompatActivity() {
                     else -> ""
                 }
             }.attach()
+
+            viewPager2a = viewPager2
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.option_menu,menu)
-        return true
+    companion object {
+        lateinit var viewPager2a: ViewPager2
     }
 }
